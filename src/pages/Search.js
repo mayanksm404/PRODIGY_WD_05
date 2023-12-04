@@ -5,17 +5,16 @@ import Spinner from "../components/Spinner";
 
 function Search() {
 
-    const [formData, setFormData] = useState('mumbai');
-    const [loading, setLoading]=useState(true);
+    const [formData, setFormData] = useState(null);
+    const [loading, setLoading]=useState(false);
     const [data,setData]=useState([]);
-    const [city,setCity]=useState('mumbai');
+    const [city,setCity]=useState(null);
     function changeHandler(event) {
         setFormData(event.target.value);
     }
     function submitHandler(event) {
         event.preventDefault();
         setCity(formData);
-        console.log(city);
     }
     const API_KEY = "313842f7d335d845cf33d27382f3bbc2";
     async function fetchweather() {
@@ -25,7 +24,6 @@ function Search() {
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data);
             setData(data);
         }
         catch (err) {
@@ -36,7 +34,6 @@ function Search() {
     useEffect(() => {
         fetchweather();
     }, [city]);
-    console.log(formData);
     return (
         <div className="mt-8 relative">
             <form onSubmit={submitHandler}>
@@ -45,7 +42,7 @@ function Search() {
             <button ><img src={search} className="mx-2 mt-1 bg-button rounded-full absolute -top-1 w-[40px] h-[40px] p-2" height={30} width={30} /></button>
             </form>
             {
-                data.name ? (loading ? <Spinner></Spinner> : <Weather data={data}/> )  : (<Spinner></Spinner>)
+                data.name ? (loading ? <Spinner></Spinner> : <Weather data={data}/> )  : (<div></div>)
             }
         </div>
     )

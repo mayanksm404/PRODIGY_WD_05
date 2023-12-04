@@ -2,7 +2,6 @@
 import './App.css';
 import { Routes,Route } from 'react-router-dom';
 import Home from './pages/Home';
-import User from './pages/User';
 import Search from './pages/Search';
 import Navbar from './components/Navbar';
 import { useEffect, useState } from 'react';
